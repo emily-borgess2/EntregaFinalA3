@@ -1,51 +1,117 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cognify — Protótipo</title>
-  <link rel="stylesheet" href="estilo.css">
-</head>
-<body>
-  <button type="button" class="btn-modo" id="btnModo" aria-label="Alternar modo claro ou escuro">
-    Modo escuro
-  </button>
+  <!DOCTYPE html>
+  <html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cognify — Protótipo</title>
+    <link rel="stylesheet" href="estilo.css">
+  </head>
+  <body>
+    <button type="button" class="btn-modo" id="btnModo" aria-label="Alternar modo claro ou escuro">
+      Modo escuro
+    </button>
+  
+    <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+      <symbol id="icone-carrinho" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2S15.9 22 17 22s2-.9 2-2-.9-2-2-2zM7.2 16h9.45c.75 0 1.41-.41 1.75-1.03l3.24-6.03a1 1 0 0 0-.88-1.47H6.21L5.27 3H2v2h2.18l2.43 11.34c.17.85.98 1.5 1.96 1.66h-.03zm.03-2L6.38 8h14.05l-2.76 5H7.23z"/>
+      </symbol>
+      <symbol id="icone-info" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+      </symbol>
+    </svg>
+  
+    <div id="tela-inicial" class="pagina ativa">
+      <header class="topo-simples">
+        <span class="logo">Cognify</span>
+        <div class="topo-acoes">
+          <button type="button" class="btn-saiba-mais" id="btnSaibaMais" title="Ver os planos">
+            <svg class="svg-icone" aria-hidden="true"><use href="#icone-info"></use></svg>
+            <span>Saiba mais</span>
+          </button>
+  
+          <button type="button" class="btn-carrinho-topo" id="btnAbrirCarrinho" aria-label="Carrinho de planos">
+            <svg class="svg-icone" aria-hidden="true"><use href="#icone-carrinho"></use></svg>
+            <span class="badge-carrinho contador-carrinho">0</span>
+          </button>
+        </div>
+      </header>
+  
+      <main class="centro">
+        <h1>Jogos que acompanham o ritmo da criança</h1>
+        <p class="subtitulo">Plataforma educativa (protótipo de telas)</p>
+        <div class="botoes-inicio">
+          <button type="button" class="btn btn-primario" id="btnEntrar">Entrar</button>
+          <button type="button" class="btn btn-secundario" id="btnCriar">Criar conta</button>
+        </div>
+      </main>
+    </div>
+  
+    <script src="app.js"></script>
+  </body>
+  </html>
 
-  <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
-    <symbol id="icone-carrinho" viewBox="0 0 24 24">
-      <path fill="currentColor" d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2S15.9 22 17 22s2-.9 2-2-.9-2-2-2zM7.2 16h9.45c.75 0 1.41-.41 1.75-1.03l3.24-6.03a1 1 0 0 0-.88-1.47H6.21L5.27 3H2v2h2.18l2.43 11.34c.17.85.98 1.5 1.96 1.66h-.03zm.03-2L6.38 8h14.05l-2.76 5H7.23z"/>
-    </symbol>
-    <symbol id="icone-info" viewBox="0 0 24 24">
-      <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
-    </symbol>
-  </svg>
-
-  <div id="tela-inicial" class="pagina ativa">
-    <header class="topo-simples">
-      <span class="logo">Cognify</span>
-      <div class="topo-acoes">
-        <button type="button" class="btn-saiba-mais" id="btnSaibaMais" title="Ver os planos">
-          <svg class="svg-icone" aria-hidden="true"><use href="#icone-info"></use></svg>
-          <span>Saiba mais</span>
+    <div id="tela-saiba-mais" class="pagina">
+      <header class="topo-simples">
+        <span class="logo">Cognify</span>
+        <div class="topo-acoes">
+          <button type="button" class="link-voltar" id="voltarInicioSaibaMais">← Início</button>
+          <button type="button" class="btn-carrinho-topo" id="btnAbrirCarrinhoSaibaMais" aria-label="Carrinho de planos">
+            <svg class="svg-icone" aria-hidden="true"><use href="#icone-carrinho"></use></svg>
+            <span class="badge-carrinho contador-carrinho">0</span>
+          </button>
+        </div>
+      </header>
+  
+      <main class="conteudo-form conteudo-saiba-mais">
+        <h2>Conheça os planos</h2>
+        <p class="ajuda">Compare os três planos. Use o carrinho para guardar o que te interessa. Para concluir, faça o cadastro.</p>
+  
+        <div class="lista-planos-saiba">
+          <article class="card-plano card-plano-saiba" data-plano="basico">
+            <h3>Básico</h3>
+            <p class="preco">Grátis (demo)</p>
+            <ul>
+              <li>Poucos jogos</li>
+              <li>Relatórios simples</li>
+            </ul>
+            <div class="linha-so-carrinho">
+              <button type="button" class="btn btn-so-carrinho" data-plano="basico" title="Adicionar ao carrinho" aria-label="Adicionar plano Básico ao carrinho">
+                <svg class="svg-icone" aria-hidden="true"><use href="#icone-carrinho"></use></svg>
+              </button>
+            </div>
+          </article>
+  
+          <article class="card-plano card-plano-saiba" data-plano="intermediario">
+            <h3>Intermediário</h3>
+            <p class="preco">R$ 29/mês</p>
+            <ul>
+              <li>Mais jogos</li>
+              <li>Parte dos relatórios</li>
+            </ul>
+            <div class="linha-so-carrinho">
+              <button type="button" class="btn btn-so-carrinho" data-plano="intermediario" title="Adicionar ao carrinho" aria-label="Adicionar plano Intermediário ao carrinho">
+                <svg class="svg-icone" aria-hidden="true"><use href="#icone-carrinho"></use></svg>
+              </button>
+            </div>
+          </article>
+  
+          <article class="card-plano card-plano-saiba" data-plano="premium">
+            <h3>Premium</h3>
+            <p class="preco">R$ 49/mês</p>
+            <ul>
+              <li>Todos os jogos</li>
+              <li>Relatórios completos</li>
+            </ul>
+            <div class="linha-so-carrinho">
+              <button type="button" class="btn btn-so-carrinho" data-plano="premium" title="Adicionar ao carrinho" aria-label="Adicionar plano Premium ao carrinho">
+                <svg class="svg-icone" aria-hidden="true"><use href="#icone-carrinho"></use></svg>
+              </button>
+            </div>
+          </article>
+        </div>
+  
+        <button type="button" class="btn btn-primario btn-largo" id="btnFinalizarCompra">
+          Finalizar compra — ir para cadastro
         </button>
-
-        <button type="button" class="btn-carrinho-topo" id="btnAbrirCarrinho" aria-label="Carrinho de planos">
-          <svg class="svg-icone" aria-hidden="true"><use href="#icone-carrinho"></use></svg>
-          <span class="badge-carrinho contador-carrinho">0</span>
-        </button>
-      </div>
-    </header>
-
-    <main class="centro">
-      <h1>Jogos que acompanham o ritmo da criança</h1>
-      <p class="subtitulo">Plataforma educativa (protótipo de telas)</p>
-      <div class="botoes-inicio">
-        <button type="button" class="btn btn-primario" id="btnEntrar">Entrar</button>
-        <button type="button" class="btn btn-secundario" id="btnCriar">Criar conta</button>
-      </div>
-    </main>
-  </div>
-
-  <script src="app.js"></script>
-</body>
-</html>
+      </main>
+    </div>
