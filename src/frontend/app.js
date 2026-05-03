@@ -1,30 +1,11 @@
-/*
-  JavaScript do protótipo Cognify
-
-  O que este arquivo faz:
-  - Troca de telas (mostra/oculta .pagina)
-  - Carrinho simples (salvo no localStorage)
-  - Cadastro (salva dados no localStorage)
-  - Pagamento simulado (resumo do carrinho + seleção de forma)
-
-  Observação: é propositalmente simples (nível iniciante).
-*/
-
-// Guarda qual plano foi selecionado na tela "Escolha um plano"
 var planoEscolhido = null;
 
-// Chaves de armazenamento no navegador (localStorage)
 var CHAVE_CARRINHO = "cognify_carrinho_demo";
-// Depois do cadastro: "planos" (vai para escolher plano) ou "pagamento" (veio do carrinho no Saiba mais)
 var CHAVE_APOS_CADASTRO = "cognify_apos_cadastro";
 
-// Abre a tela de cadastro e define o que acontece depois do cadastro:
-// - "planos": vai para a tela de escolha de planos
-// - "pagamento": vai para a tela de pagamento (sem escolher plano de novo)
 function entrarCadastro(destinoAposCadastro) {
   if (destinoAposCadastro === "pagamento") {
     localStorage.setItem(CHAVE_APOS_CADASTRO, "pagamento");
-    // muda o texto do botão do cadastro para ficar coerente com o fluxo
     document.getElementById("btnSubmitCadastro").textContent =
       "Continuar para o pagamento";
   } else {
@@ -35,7 +16,6 @@ function entrarCadastro(destinoAposCadastro) {
   mostrarPagina("tela-cadastro");
 }
 
-// Preço mensal por plano (valores demo)
 function precoPlanoMensal(cod) {
   if (cod === "basico") return 0;
   if (cod === "intermediario") return 29;
@@ -43,7 +23,6 @@ function precoPlanoMensal(cod) {
   return 0;
 }
 
-// Conta quantos itens de cada tipo existem no carrinho
 function contarItensCarrinho() {
   var lista = obterCarrinho();
   var o = { basico: 0, intermediario: 0, premium: 0 };
@@ -56,8 +35,6 @@ function contarItensCarrinho() {
   return o;
 }
 
-// Regra simples: se tiver Premium no carrinho, "vence".
-// Se não, Intermediário. Se não, Básico.
 function planoPrincipalDoCarrinho() {
   var c = contarItensCarrinho();
   if (c.premium > 0) return "premium";
@@ -66,9 +43,7 @@ function planoPrincipalDoCarrinho() {
   return "basico";
 }
 
-// Monta a tela de pagamento (resumo e total) usando o carrinho
 function montarTelaPagamento() {
-  // reseta o formulário para a pessoa escolher o meio de pagamento
   document.getElementById("formPagamento").reset();
   var msgPg = document.getElementById("msgErroPagamento");
   msgPg.hidden = true;
@@ -78,7 +53,6 @@ function montarTelaPagamento() {
   var totalEl = document.getElementById("totalPagamento");
   var lista = obterCarrinho();
 
-  // Caso o carrinho esteja vazio: mostra aviso + botão para ir aos planos
   if (lista.length === 0) {
     el.innerHTML =
       '<p class="ajuda">Seu carrinho está vazio. Volte em <strong>Conheça os planos</strong> para adicionar itens.</p>' +
@@ -90,7 +64,6 @@ function montarTelaPagamento() {
     return;
   }
 
-  // Caso tenha itens: monta uma lista (<ul>) e calcula total estimado
   var contagem = contarItensCarrinho();
   var nomes = nomesPlanos();
   var html = '<ul class="lista-resumo-pagamento">';
@@ -112,7 +85,6 @@ function montarTelaPagamento() {
   totalEl.textContent = "Total estimado (demo): R$ " + total + "/mês";
 }
 
-// Lê carrinho do localStorage (sempre retorna um array)
 function obterCarrinho() {
   try {
     var txt = localStorage.getItem(CHAVE_CARRINHO);
@@ -120,25 +92,21 @@ function obterCarrinho() {
     var arr = JSON.parse(txt);
     if (Array.isArray(arr)) return arr;
   } catch (e) {
-    // ignora erro de JSON
   }
   return [];
 }
 
-// Salva carrinho e atualiza contadores na tela
 function salvarCarrinho(lista) {
   localStorage.setItem(CHAVE_CARRINHO, JSON.stringify(lista));
   atualizarContadorCarrinho();
 }
 
-// Adiciona 1 item (plano) no carrinho
 function adicionarPlanoNoCarrinho(codigo) {
   var lista = obterCarrinho();
   lista.push(codigo);
   salvarCarrinho(lista);
 }
 
-// Atualiza todas as badges do carrinho (home, saiba mais, planos, pagamento)
 function atualizarContadorCarrinho() {
   var n = obterCarrinho().length;
   var badges = document.querySelectorAll(".contador-carrinho");
@@ -147,12 +115,10 @@ function atualizarContadorCarrinho() {
   }
 }
 
-// Nome "bonito" para cada código de plano
 function nomesPlanos() {
   return { basico: "Básico", intermediario: "Intermediário", premium: "Premium" };
 }
 
-// Mostra um resumo do carrinho via alert (bem simples)
 function mostrarResumoCarrinho() {
   var lista = obterCarrinho();
   if (lista.length === 0) {
@@ -168,10 +134,6 @@ function mostrarResumoCarrinho() {
   alert("Itens no carrinho (protótipo):\n\n" + linhas.join("\n"));
 }
 
-// Troca de telas:
-// - remove "ativa" de todas
-// - adiciona "ativa" na tela indicada
-// - se for a tela de pagamento, monta o resumo antes de mostrar
 function mostrarPagina(id) {
   var paginas = document.querySelectorAll(".pagina");
   for (var i = 0; i < paginas.length; i++) {
@@ -191,9 +153,6 @@ function mostrarPagina(id) {
 }
 
 
-// ==========================
-// TELA DE JOGOS
-// ==========================
 var planoAtualJogos = "basico";
 var perfilAtualJogos = "todos";
 
@@ -350,21 +309,15 @@ function montarTelaJogos() {
   document.getElementById("listaJogos").innerHTML = html;
 }
 
-// ==========================
-// Eventos da TELA INICIAL
-// ==========================
 document.getElementById("btnEntrar").onclick = function () {
-  // no prototipo, "entrar" vai direto para cadastro tambem
   alert("No prototipo, use Criar conta para ver o fluxo completo.");
 };
 
 document.getElementById("btnCriar").onclick = function () {
-  // fluxo normal: cadastro -> tela de escolha de planos
   entrarCadastro("planos");
 };
 
 document.getElementById("voltarInicio1").onclick = function () {
-  // se a pessoa voltar ao início, limpamos a intenção do fluxo
   localStorage.removeItem(CHAVE_APOS_CADASTRO);
   mostrarPagina("tela-inicial");
 };
@@ -373,10 +326,6 @@ document.getElementById("voltarCadastro").onclick = function () {
   mostrarPagina("tela-cadastro");
 };
 
-// ==========================
-// Eventos da tela SAIBA MAIS
-// ==========================
-// Saiba mais: tela separada (só carrinho, nao e a mesma da escolha pos-cadastro)
 document.getElementById("btnSaibaMais").onclick = function () {
   mostrarPagina("tela-saiba-mais");
 };
@@ -429,9 +378,7 @@ document.getElementById("btnAbrirCarrinhoSaibaMais").onclick = function () {
   mostrarResumoCarrinho();
 };
 
-// depois de montar o carrinho, finalizar manda para o cadastro (e depois para pagamento, nao escolher plano de novo)
 document.getElementById("btnFinalizarCompra").onclick = function () {
-  // marca fluxo: cadastro -> pagamento
   entrarCadastro("pagamento");
 };
 
@@ -448,13 +395,10 @@ document.getElementById("btnAbrirCarrinhoPagamento").onclick = function () {
 };
 
 document.getElementById("voltarCadastroPagamento").onclick = function () {
-  // volta ao cadastro mantendo a intenção de ir para pagamento depois
   entrarCadastro("pagamento");
 };
 
-// botoes de carrinho em cada card de plano
 document.body.addEventListener("click", function (ev) {
-  // closest: se clicar no SVG dentro do botão, ele ainda encontra o botão pai
   var alvo = ev.target.closest(".btn-so-carrinho");
   if (!alvo) return;
   var cod = alvo.getAttribute("data-plano");
@@ -462,14 +406,9 @@ document.body.addEventListener("click", function (ev) {
   adicionarPlanoNoCarrinho(cod);
 });
 
-// ==========================
-// Eventos do CADASTRO
-// ==========================
-// formulario cadastro
 document.getElementById("formCadastro").onsubmit = function (e) {
   e.preventDefault();
 
-  // pega os valores do formulário
   var nomeResp = document.getElementById("nomeResp").value.trim();
   var email = document.getElementById("email").value.trim();
   var senha = document.getElementById("senha").value;
@@ -477,26 +416,22 @@ document.getElementById("formCadastro").onsubmit = function (e) {
   var idade = document.getElementById("idade").value;
   var transtorno = document.getElementById("transtorno").value;
 
-  // elemento de erro (fica hidden até ter erro)
   var msg = document.getElementById("msgErroCadastro");
   msg.hidden = true;
   msg.textContent = "";
 
-  // validação bem básica (só para protótipo)
   if (!nomeResp || !email || !senha || !nomeCrianca || !idade || !transtorno) {
     msg.textContent = "Preencha todos os campos.";
     msg.hidden = false;
     return;
   }
 
-  // regra simples de senha (não é regra de produção)
   if (senha.length < 4) {
     msg.textContent = "A senha deve ter pelo menos 4 caracteres (regra simples do prototipo).";
     msg.hidden = false;
     return;
   }
 
-  // guarda no navegador (só para mostrar que funciona, sem backend)
   var dados = {
     nomeResp: nomeResp,
     email: email,
@@ -506,7 +441,6 @@ document.getElementById("formCadastro").onsubmit = function (e) {
   };
   localStorage.setItem("cognify_cadastro_demo", JSON.stringify(dados));
 
-  // decide qual tela vem depois do cadastro
   var depois = localStorage.getItem(CHAVE_APOS_CADASTRO);
   localStorage.removeItem(CHAVE_APOS_CADASTRO);
 
@@ -518,17 +452,12 @@ document.getElementById("formCadastro").onsubmit = function (e) {
   }
 };
 
-// ==========================
-// Eventos do PAGAMENTO
-// ==========================
-// Pagamento: valida forma escolhida e finaliza (simulado)
 document.getElementById("formPagamento").onsubmit = function (e) {
   e.preventDefault();
   var err = document.getElementById("msgErroPagamento");
   err.hidden = true;
   err.textContent = "";
 
-  // se não tem carrinho, não tem como pagar
   if (obterCarrinho().length === 0) {
     err.textContent =
       "Não há itens no carrinho. Volte em Conheça os planos ou escolha outro fluxo.";
@@ -536,7 +465,6 @@ document.getElementById("formPagamento").onsubmit = function (e) {
     return;
   }
 
-  // descobre qual radio está marcado
   var radios = document.getElementsByName("formaPagamento");
   var escolha = "";
   for (var r = 0; r < radios.length; r++) {
@@ -551,14 +479,11 @@ document.getElementById("formPagamento").onsubmit = function (e) {
     return;
   }
 
-  // finaliza a compra (simulada)
   var nomesPg = { pix: "PIX", cartao: "cartão de crédito", boleto: "boleto" };
   var plano = planoPrincipalDoCarrinho();
   localStorage.setItem("cognify_plano_demo", plano);
-  // limpa carrinho após pagar
   salvarCarrinho([]);
 
-  // tenta pegar o nome da criança para colocar na mensagem final
   var cadastroStr = localStorage.getItem("cognify_cadastro_demo");
   var nomeCrianca = "a criança";
   if (cadastroStr) {
@@ -566,11 +491,9 @@ document.getElementById("formPagamento").onsubmit = function (e) {
       var c = JSON.parse(cadastroStr);
       if (c.nomeCrianca) nomeCrianca = c.nomeCrianca;
     } catch (err2) {
-      // ignora
     }
   }
 
-  // mensagem final
   document.getElementById("textoResumo").textContent =
     "Pagamento efetuado com sucesso! " +
     "Cadastro salvo (demo). Forma de pagamento: " +
@@ -584,13 +507,8 @@ document.getElementById("formPagamento").onsubmit = function (e) {
   mostrarPagina("tela-resumo");
 };
 
-// ==========================
-// TELA DE PLANOS (pós-cadastro)
-// ==========================
-// Reseta a seleção de planos (somente na tela #tela-planos)
 function resetPlanos() {
   planoEscolhido = null;
-  // so os cards da tela pos-cadastro (nao misturar com "Saiba mais")
   var cards = document.querySelectorAll("#tela-planos .card-plano");
   for (var i = 0; i < cards.length; i++) {
     cards[i].classList.remove("selecionado");
@@ -600,14 +518,12 @@ function resetPlanos() {
   document.getElementById("btnConfirmarPlano").disabled = true;
 }
 
-// escolher plano (somente na tela #tela-planos)
 var botoesEscolher = document.querySelectorAll("#tela-planos .btn-escolher");
 for (var j = 0; j < botoesEscolher.length; j++) {
   botoesEscolher[j].onclick = function () {
     var card = this.closest(".card-plano");
     if (!card) return;
 
-    // tira seleção de todos e marca o clicado
     var todos = document.querySelectorAll("#tela-planos .card-plano");
     for (var k = 0; k < todos.length; k++) {
       todos[k].classList.remove("selecionado");
@@ -618,17 +534,14 @@ for (var j = 0; j < botoesEscolher.length; j++) {
     var nomes = { basico: "Básico", intermediario: "Intermediário", premium: "Premium" };
     document.getElementById("msgPlanoSelecionado").textContent =
       "Plano selecionado: " + nomes[planoEscolhido] + ".";
-    // habilita o botão de confirmar
     document.getElementById("btnConfirmarPlano").disabled = false;
   };
 }
 
-// Confirmar plano: manda para pagamento e coloca apenas este plano no carrinho
 document.getElementById("btnConfirmarPlano").onclick = function () {
   if (!planoEscolhido) return;
   localStorage.setItem("cognify_plano_demo", planoEscolhido);
 
-  // mesmo fluxo do "carrinho": depois de escolher o plano, vai para pagamento
   salvarCarrinho([planoEscolhido]);
 
   mostrarPagina("tela-pagamento");
@@ -638,9 +551,6 @@ document.getElementById("btnRecomecar").onclick = function () {
   mostrarPagina("tela-inicial");
 };
 
-// ==========================
-// Modo escuro (toggle simples)
-// ==========================
 document.getElementById("btnModo").onclick = function () {
   var body = document.body;
   if (body.classList.contains("modo-escuro")) {
@@ -652,5 +562,4 @@ document.getElementById("btnModo").onclick = function () {
   }
 };
 
-// ao carregar a pagina, mostra o numero certo no carrinho
 atualizarContadorCarrinho();

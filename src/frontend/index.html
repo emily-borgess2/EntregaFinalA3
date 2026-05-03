@@ -4,42 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cognify — Protótipo</title>
-  <!-- CSS do protótipo (cores, layout, botões, responsividade) -->
   <link rel="stylesheet" href="estilo.css">
 </head>
 <body>
-  <!--
-    PROTÓTIPO (HTML + CSS + JavaScript)
-
-    Objetivo: simular um fluxo de planos (como se fosse compra).
-    Estrutura: cada "tela" é uma <div class="pagina">.
-    O JavaScript mostra/oculta telas trocando a classe "ativa".
-
-    Telas:
-    - tela-inicial: entrada
-    - tela-saiba-mais: conhecer planos (só carrinho)
-    - tela-cadastro: responsável + criança
-    - tela-planos: escolher 1 plano (pós-cadastro)
-    - tela-pagamento: resumo do carrinho + forma de pagamento (simulado)
-    - tela-jogos: biblioteca de jogos com filtros por perfil e limite por plano
-    - tela-resumo: mensagem final
-  -->
-
-  <!-- Botão flutuante: alterna modo claro/escuro (acessibilidade) -->
   <button type="button" class="btn-modo" id="btnModo" aria-label="Alternar modo claro ou escuro">
     Modo escuro
   </button>
 
-  <!--
-    Ícones em SVG reutilizáveis.
-    Eles ficam "escondidos" e são usados com <use href="#icone-id">.
-  -->
   <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
-    <!-- Símbolo reutilizável: carrinho -->
     <symbol id="icone-carrinho" viewBox="0 0 24 24">
       <path fill="currentColor" d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2S15.9 22 17 22s2-.9 2-2-.9-2-2-2zM7.2 16h9.45c.75 0 1.41-.41 1.75-1.03l3.24-6.03a1 1 0 0 0-.88-1.47H6.21L5.27 3H2v2h2.18l2.43 11.34c.17.85.98 1.5 1.96 1.66h-.03zm.03-2L6.38 8h14.05l-2.76 5H7.23z"/>
     </symbol>
-    <!-- Símbolo reutilizável: informação (i) -->
     <symbol id="icone-info" viewBox="0 0 24 24">
       <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
     </symbol>
@@ -47,11 +22,8 @@
 
   <div id="tela-inicial" class="pagina ativa">
     <header class="topo-simples">
-      <!-- Logo simples (texto) -->
       <span class="logo">Cognify</span>
-      <!-- Ações do topo (direita): Saiba mais + Carrinho -->
       <div class="topo-acoes">
-        <!-- "Saiba mais" leva para a tela de conhecer os planos -->
         <button type="button" class="btn-saiba-mais" id="btnSaibaMais" title="Ver os planos">
           <svg class="svg-icone" aria-hidden="true"><use href="#icone-info"></use></svg>
           <span>Saiba mais</span>
@@ -59,40 +31,27 @@
         <button type="button" class="btn-saiba-mais" id="btnAbrirJogosHome" title="Ver jogos disponíveis">
           <span>Jogos</span>
         </button>
-        <!-- Carrinho (mostra resumo via alert no protótipo) -->
         <button type="button" class="btn-carrinho-topo" id="btnAbrirCarrinho" aria-label="Carrinho de planos">
           <svg class="svg-icone" aria-hidden="true"><use href="#icone-carrinho"></use></svg>
-          <!-- Número de itens no carrinho (JS atualiza todos com .contador-carrinho) -->
           <span class="badge-carrinho contador-carrinho">0</span>
         </button>
       </div>
     </header>
     <main class="centro">
-      <!-- Texto principal (bem minimalista) -->
       <h1>Jogos que acompanham o ritmo da criança</h1>
       <p class="subtitulo">Plataforma educativa (protótipo de telas)</p>
       <div class="botoes-inicio">
-        <!-- No protótipo, "Entrar" só mostra aviso -->
         <button type="button" class="btn btn-primario" id="btnEntrar">Entrar</button>
-        <!-- "Criar conta" inicia o fluxo de cadastro -->
         <button type="button" class="btn btn-secundario" id="btnCriar">Criar conta</button>
       </div>
     </main>
   </div>
 
-  <!--
-    TELA: SAIBA MAIS (Conheça os planos)
-    - Planos aparecem na horizontal (CSS controla)
-    - Aqui não existe botão "Escolher", só botão do carrinho
-    - "Finalizar compra" manda pro cadastro e depois para pagamento
-  -->
   <div id="tela-saiba-mais" class="pagina">
     <header class="topo-simples">
       <span class="logo">Cognify</span>
       <div class="topo-acoes">
-        <!-- Voltar para o início -->
         <button type="button" class="link-voltar" id="voltarInicioSaibaMais">← Início</button>
-        <!-- Carrinho (alert) -->
         <button type="button" class="btn-carrinho-topo" id="btnAbrirCarrinhoSaibaMais" aria-label="Carrinho de planos">
           <svg class="svg-icone" aria-hidden="true"><use href="#icone-carrinho"></use></svg>
           <span class="badge-carrinho contador-carrinho">0</span>
@@ -103,7 +62,6 @@
       <h2>Conheça os planos</h2>
       <p class="ajuda">Compare os três planos. Use o carrinho para guardar o que te interessa. Para concluir, faça o cadastro.</p>
 
-      <!-- Cards dos planos (sem "Escolher") -->
       <div class="lista-planos-saiba">
         <article class="card-plano card-plano-saiba" data-plano="basico">
           <h3>Básico</h3>
@@ -115,7 +73,6 @@
           </ul>
           <button type="button" class="btn btn-secundario btn-largo btn-ver-jogos" data-plano="basico">Saiba mais sobre os jogos</button>
           <div class="linha-so-carrinho">
-            <!-- Botão: adiciona o plano no carrinho -->
             <button type="button" class="btn btn-so-carrinho" data-plano="basico" title="Adicionar ao carrinho" aria-label="Adicionar plano Básico ao carrinho">
               <svg class="svg-icone" aria-hidden="true"><use href="#icone-carrinho"></use></svg>
             </button>
@@ -132,7 +89,6 @@
           </ul>
           <button type="button" class="btn btn-secundario btn-largo btn-ver-jogos" data-plano="intermediario">Saiba mais sobre os jogos</button>
           <div class="linha-so-carrinho">
-            <!-- Botão: adiciona o plano no carrinho -->
             <button type="button" class="btn btn-so-carrinho" data-plano="intermediario" title="Adicionar ao carrinho" aria-label="Adicionar plano Intermediário ao carrinho">
               <svg class="svg-icone" aria-hidden="true"><use href="#icone-carrinho"></use></svg>
             </button>
@@ -149,7 +105,6 @@
           </ul>
           <button type="button" class="btn btn-secundario btn-largo btn-ver-jogos" data-plano="premium">Saiba mais sobre os jogos</button>
           <div class="linha-so-carrinho">
-            <!-- Botão: adiciona o plano no carrinho -->
             <button type="button" class="btn btn-so-carrinho" data-plano="premium" title="Adicionar ao carrinho" aria-label="Adicionar plano Premium ao carrinho">
               <svg class="svg-icone" aria-hidden="true"><use href="#icone-carrinho"></use></svg>
             </button>
@@ -157,7 +112,6 @@
         </article>
       </div>
 
-      <!-- Marca que depois do cadastro vai para pagamento -->
       <button type="button" class="btn btn-primario btn-largo" id="btnFinalizarCompra">
         Finalizar compra — ir para cadastro
       </button>
@@ -167,14 +121,12 @@
   <div id="tela-cadastro" class="pagina">
     <header class="topo-simples">
       <span class="logo">Cognify</span>
-      <!-- Volta ao início (e no JS limpa a intenção do fluxo) -->
       <button type="button" class="link-voltar" id="voltarInicio1">← Início</button>
     </header>
     <main class="conteudo-form">
       <h2>Cadastro</h2>
       <p class="ajuda">Preencha os dados do responsável e da criança.</p>
 
-      <!-- novalidate: o JS faz a validação (mais simples para protótipo) -->
       <form id="formCadastro" novalidate>
         <fieldset>
           <legend>Responsável</legend>
@@ -207,23 +159,19 @@
 
         <p class="msg-erro" id="msgErroCadastro" role="alert" hidden></p>
 
-        <!-- O texto desse botão muda no JS dependendo do fluxo (planos vs pagamento) -->
         <button type="submit" class="btn btn-primario btn-largo" id="btnSubmitCadastro">Continuar para os planos</button>
       </form>
     </main>
   </div>
 
-  <!-- depois do cadastro vindo do carrinho (Saiba mais): pagamento, sem passar de novo pela escolha de planos -->
   <div id="tela-pagamento" class="pagina">
     <header class="topo-simples">
       <span class="logo">Cognify</span>
       <div class="topo-acoes">
-        <!-- Carrinho (mostra resumo via alert) -->
         <button type="button" class="btn-carrinho-topo" id="btnAbrirCarrinhoPagamento" aria-label="Carrinho de planos">
           <svg class="svg-icone" aria-hidden="true"><use href="#icone-carrinho"></use></svg>
           <span class="badge-carrinho contador-carrinho">0</span>
         </button>
-        <!-- Voltar ao cadastro mantendo o fluxo "pagamento" -->
         <button type="button" class="link-voltar" id="voltarCadastroPagamento">← Cadastro</button>
       </div>
     </header>
@@ -231,14 +179,12 @@
       <h2>Pagamento</h2>
       <p class="ajuda">Resumo do que está no carrinho e forma de pagamento (simulação).</p>
 
-      <!-- O JS monta aqui o resumo do carrinho e o total -->
       <section class="bloco-pagamento" aria-labelledby="tituloResumo">
         <h3 id="tituloResumo">Resumo do pedido</h3>
         <div id="listaResumoPagamento"></div>
         <p class="total-pagamento" id="totalPagamento" aria-live="polite"></p>
       </section>
 
-      <!-- Form de pagamento (simulado): exige escolher uma opção -->
       <form id="formPagamento" novalidate>
         <fieldset>
           <legend>Como deseja pagar?</legend>
@@ -265,7 +211,6 @@
     <header class="topo-simples">
       <span class="logo">Cognify</span>
       <div class="topo-acoes">
-        <!-- Carrinho (resumo via alert) -->
         <button type="button" class="btn-carrinho-topo" id="btnAbrirCarrinhoPlanos" aria-label="Carrinho de planos">
           <svg class="svg-icone" aria-hidden="true"><use href="#icone-carrinho"></use></svg>
           <span class="badge-carrinho contador-carrinho">0</span>
@@ -277,7 +222,6 @@
       <h2>Escolha um plano</h2>
       <p class="ajuda">Simulação: o plano define o que a plataforma libera depois.</p>
 
-      <!-- Cards de planos (aqui existe "Escolher" + carrinho) -->
       <div class="lista-planos">
         <article class="card-plano" data-plano="basico">
           <h3>Básico</h3>
@@ -287,9 +231,7 @@
             <li>Relatórios simples</li>
           </ul>
           <div class="linha-botoes-plano">
-            <!-- "Escolher": marca o card como selecionado -->
             <button type="button" class="btn btn-secundario btn-escolher">Escolher</button>
-            <!-- Carrinho: adiciona esse plano ao carrinho -->
             <button type="button" class="btn btn-so-carrinho" data-plano="basico" title="Adicionar ao carrinho" aria-label="Adicionar plano Básico ao carrinho">
               <svg class="svg-icone" aria-hidden="true"><use href="#icone-carrinho"></use></svg>
             </button>
@@ -329,7 +271,6 @@
 
       <p class="msg-plano" id="msgPlanoSelecionado" aria-live="polite">Nenhum plano selecionado ainda.</p>
 
-      <!-- Confirmar plano leva para o pagamento -->
       <button type="button" class="btn btn-primario btn-largo" id="btnConfirmarPlano" disabled>
         Confirmar plano
       </button>
@@ -393,14 +334,12 @@
     </header>
     <main class="conteudo-form">
       <h2>Pronto</h2>
-      <!-- JS escreve o resultado final aqui -->
       <p id="textoResumo">Você concluiu o fluxo do protótipo.</p>
       <button type="button" class="btn btn-primario btn-largo" id="btnAcessarJogosResumo">Acessar jogos</button>
       <button type="button" class="btn btn-secundario" id="btnRecomecar">Voltar ao início</button>
     </main>
   </div>
 
-  <!-- JavaScript do protótipo (troca de telas e regras simples) -->
   <script src="app.js"></script>
 </body>
 </html>
