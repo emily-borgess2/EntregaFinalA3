@@ -278,7 +278,7 @@
   </div>
 
 
-  <div id="tela-jogos" class="pagina">
+  <div id="tela-jogos" class="pagina jogos-tela">
     <header class="topo-simples">
       <span class="logo"><img src="logo.png" alt="Cognify" class="logo-img" width="240" height="72"></span>
       <div class="topo-acoes">
@@ -289,42 +289,53 @@
         </button>
       </div>
     </header>
-    <main class="conteudo-form conteudo-jogos">
-      <h2>Jogos por perfil</h2>
-      <p class="ajuda" id="resumoPlanoJogos">Selecione um plano para visualizar os jogos liberados.</p>
 
-      <section class="painel-filtros" aria-label="Filtros de perfil">
-        <label for="filtroPlanoJogos">Plano</label>
-        <select id="filtroPlanoJogos">
-          <option value="basico">Básico — 4 jogos</option>
-          <option value="intermediario">Intermediário — 8 jogos</option>
-          <option value="premium">Premium — 12 jogos</option>
-        </select>
+    <main class="conteudo-form jogos-corpo">
+      <header class="jogos-hero">
+        <h2 class="jogos-hero-titulo">Biblioteca de jogos</h2>
+        <p class="ajuda jogos-hero-texto" id="resumoPlanoJogos">
+          Escolha o plano e o perfil para ver os jogos liberados neste protótipo.
+        </p>
+      </header>
 
-        <div class="grupo-filtros-perfil" aria-label="Perfis de aprendizagem">
-          <button type="button" class="chip-filtro ativo" data-perfil="todos">Todos</button>
-          <button type="button" class="chip-filtro" data-perfil="tdah">TDAH</button>
-          <button type="button" class="chip-filtro" data-perfil="tea">TEA</button>
-          <button type="button" class="chip-filtro" data-perfil="dislexia">Dislexia</button>
+      <section class="jogos-filtros" aria-labelledby="jogos-filtros-titulo">
+        <h3 id="jogos-filtros-titulo" class="jogos-filtros-titulo">Filtros</h3>
+        <div class="jogos-filtros-linha">
+          <div class="jogos-campo">
+            <label for="filtroPlanoJogos">Plano</label>
+            <select id="filtroPlanoJogos">
+              <option value="basico">Básico — 4 jogos</option>
+              <option value="intermediario">Intermediário — 8 jogos</option>
+              <option value="premium">Premium — 12 jogos</option>
+            </select>
+          </div>
+        </div>
+        <div class="jogos-chips" role="group" aria-label="Perfil de aprendizagem">
+          <button type="button" class="jogos-chip jogos-chip--ativo" data-perfil="todos">Todos</button>
+          <button type="button" class="jogos-chip" data-perfil="tdah">TDAH</button>
+          <button type="button" class="jogos-chip" data-perfil="tea">TEA</button>
+          <button type="button" class="jogos-chip" data-perfil="dislexia">Dislexia</button>
         </div>
       </section>
 
-      <section class="metricas-jogos" aria-label="Resumo da biblioteca">
-        <article class="card-metrica">
-          <strong id="qtdJogosPlano">0</strong>
-          <span>jogos liberados no plano</span>
+      <section class="jogos-resumo" aria-label="Quantidade de jogos">
+        <article class="jogos-resumo-item">
+          <strong id="qtdJogosPlano" class="jogos-resumo-numero">0</strong>
+          <span class="jogos-resumo-rotulo">liberados no plano</span>
         </article>
-        <article class="card-metrica">
-          <strong id="qtdJogosFiltro">0</strong>
-          <span>jogos no filtro atual</span>
+        <article class="jogos-resumo-item">
+          <strong id="qtdJogosFiltro" class="jogos-resumo-numero">0</strong>
+          <span class="jogos-resumo-rotulo">no filtro atual</span>
         </article>
       </section>
 
-      <div class="lista-jogos" id="listaJogos"></div>
+      <div id="listaJogos" class="jogos-grid" role="list"></div>
 
-      <button type="button" class="btn btn-primario btn-largo" id="btnAdicionarPlanoJogos">
-        Adicionar este plano ao carrinho
-      </button>
+      <footer class="jogos-rodape-acao">
+        <button type="button" class="btn btn-primario btn-largo" id="btnAdicionarPlanoJogos">
+          Adicionar este plano ao carrinho
+        </button>
+      </footer>
     </main>
   </div>
 

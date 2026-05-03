@@ -437,111 +437,170 @@ select:focus {
   width: auto;
 }
 
-.conteudo-jogos {
+.jogos-corpo {
   max-width: 1120px;
 }
 
-.painel-filtros {
+.jogos-hero {
+  margin-bottom: 22px;
+}
+
+.jogos-hero-titulo {
+  margin: 0 0 8px 0;
+  font-family: Georgia, serif;
+  font-size: 1.55rem;
+  color: var(--texto);
+}
+
+.jogos-hero-texto {
+  margin: 0;
+}
+
+.jogos-filtros {
   border: 1px solid var(--borda);
   border-radius: 16px;
-  padding: 16px;
-  margin: 18px 0;
+  padding: 18px 18px 16px;
+  margin-bottom: 20px;
   background: rgba(255, 255, 255, 0.72);
   box-shadow: var(--sombra-card);
 }
 
-.grupo-filtros-perfil {
+.jogos-filtros-titulo {
+  margin: 0 0 14px 0;
+  font-size: 0.85rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--texto-suave);
+}
+
+.jogos-filtros-linha {
+  margin-bottom: 14px;
+}
+
+.jogos-campo label {
+  margin-top: 0;
+}
+
+.jogos-chips {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin-top: 14px;
 }
 
-.chip-filtro {
+.jogos-chip {
   border: 1px solid var(--destaque);
   border-radius: 999px;
-  padding: 9px 14px;
+  padding: 9px 16px;
   background: rgba(255, 255, 255, 0.85);
   color: var(--destaque-escuro);
   cursor: pointer;
   font-weight: bold;
+  font-family: inherit;
+  font-size: 0.9rem;
 }
 
-.chip-filtro.ativo {
+.jogos-chip--ativo {
   background: var(--destaque);
   color: #fff;
 }
 
-.metricas-jogos {
+.jogos-resumo {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 14px;
-  margin-bottom: 18px;
+  margin-bottom: 22px;
 }
 
-.card-metrica {
+.jogos-resumo-item {
   border: 1px solid var(--borda);
   border-radius: 14px;
-  padding: 16px;
+  padding: 16px 18px;
   background: var(--branco);
   box-shadow: var(--sombra-card);
 }
 
-.card-metrica strong {
+.jogos-resumo-numero {
   display: block;
-  font-size: 1.8rem;
+  font-size: 1.85rem;
+  line-height: 1.1;
   color: var(--logo);
 }
 
-.card-metrica span {
+.jogos-resumo-rotulo {
+  display: block;
+  margin-top: 6px;
   color: var(--texto-suave);
   font-size: 0.92rem;
 }
 
-.lista-jogos {
+.jogos-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 18px;
+  margin-bottom: 28px;
 }
 
-.card-jogo {
+.jogos-card {
   border: 1px solid var(--borda);
   border-radius: 16px;
-  padding: 18px;
+  padding: 20px;
   background: var(--branco);
   box-shadow: var(--sombra-card);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-.card-jogo h3 {
-  margin: 0 0 8px 0;
+.jogos-card-titulo {
+  margin: 0;
   font-family: Georgia, serif;
+  font-size: 1.12rem;
   color: var(--logo);
 }
 
-.card-jogo p {
-  color: var(--texto-suave);
-  line-height: 1.45;
-  margin: 8px 0;
+.jogos-card-objetivo-bloco {
+  flex: 1;
 }
 
-.tags-jogo {
+.jogos-card-rotulo {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--destaque-escuro);
+  margin-bottom: 6px;
+}
+
+.jogos-card-texto {
+  margin: 0;
+  color: var(--texto-suave);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.jogos-card-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  margin-top: 12px;
 }
 
-.tag-jogo {
+.jogos-tag {
   border-radius: 999px;
-  padding: 5px 9px;
-  font-size: 0.78rem;
+  padding: 5px 10px;
+  font-size: 0.76rem;
   background: rgba(61, 155, 138, 0.14);
   color: var(--destaque-escuro);
   font-weight: bold;
 }
 
+.jogos-rodape-acao {
+  margin-top: 4px;
+}
+
 @media (max-width: 620px) {
-  .metricas-jogos {
+  .jogos-resumo {
     grid-template-columns: 1fr;
   }
 }
@@ -682,17 +741,27 @@ body.modo-escuro .bloco-pagamento {
   background: rgba(45, 56, 53, 0.45);
 }
 
-body.modo-escuro .painel-filtros {
+body.modo-escuro .jogos-filtros {
   background: rgba(45, 56, 53, 0.45);
 }
 
-body.modo-escuro .chip-filtro {
+body.modo-escuro .jogos-chip {
   background: rgba(45, 56, 53, 0.6);
   color: var(--destaque);
 }
 
-body.modo-escuro .tag-jogo {
+body.modo-escuro .jogos-chip--ativo {
+  color: #fff;
+}
+
+body.modo-escuro .jogos-tag {
   color: var(--destaque);
+}
+
+body.modo-escuro .jogos-card,
+body.modo-escuro .jogos-resumo-item {
+  border-color: var(--borda);
+  background: var(--branco);
 }
 
 .btn-modo {

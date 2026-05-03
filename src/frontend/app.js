@@ -166,74 +166,62 @@ var jogosCognify = [
   {
     titulo: "Missão Foco Rápido",
     perfis: ["tdah"],
-    objetivo: "Treinar atenção sustentada, tempo de resposta e controle de impulsividade.",
-    indicado: "Atividades curtas, metas rápidas e feedback visual imediato."
+    objetivo: "Treinar atenção sustentada, tempo de resposta e controle de impulsividade."
   },
   {
     titulo: "Sequência Zen",
     perfis: ["tdah", "tea"],
-    objetivo: "Organizar etapas, seguir rotina e reduzir distrações durante a tarefa.",
-    indicado: "Bom para crianças que precisam de previsibilidade e instruções objetivas."
+    objetivo: "Organizar etapas, seguir rotina e reduzir distrações durante a tarefa."
   },
   {
     titulo: "Letras em Movimento",
     perfis: ["dislexia"],
-    objetivo: "Trabalhar reconhecimento de letras, sílabas e associação som-imagem.",
-    indicado: "Foco em leitura inicial, consciência fonológica e reforço visual."
+    objetivo: "Trabalhar reconhecimento de letras, sílabas e associação som-imagem."
   },
   {
     titulo: "Memória de Emoções",
     perfis: ["tea"],
-    objetivo: "Estimular identificação de emoções e interpretação de expressões simples.",
-    indicado: "Usa pares visuais, baixa carga textual e repetição guiada."
+    objetivo: "Estimular identificação de emoções e interpretação de expressões simples."
   },
   {
     titulo: "Caça-Sílabas",
     perfis: ["dislexia"],
-    objetivo: "Reforçar leitura por blocos, combinação silábica e discriminação visual.",
-    indicado: "Ideal para evoluir leitura sem pressionar velocidade."
+    objetivo: "Reforçar leitura por blocos, combinação silábica e discriminação visual."
   },
   {
     titulo: "Circuito da Atenção",
     perfis: ["tdah"],
-    objetivo: "Treinar alternância de foco, tomada de decisão e autocontrole.",
-    indicado: "Rodadas curtas para manter engajamento e reduzir fadiga."
+    objetivo: "Treinar alternância de foco, tomada de decisão e autocontrole."
   },
   {
     titulo: "Rotina Visual",
     perfis: ["tea"],
-    objetivo: "Montar sequências de rotina com apoio visual e previsibilidade.",
-    indicado: "Ajuda na organização diária e na compreensão de começo, meio e fim."
+    objetivo: "Montar sequências de rotina com apoio visual e previsibilidade."
   },
   {
     titulo: "Som das Palavras",
     perfis: ["dislexia"],
-    objetivo: "Estimular consciência fonêmica, rimas e associação entre som e grafia.",
-    indicado: "Recomendado para fortalecer base de leitura e escrita."
+    objetivo: "Estimular consciência fonêmica, rimas e associação entre som e grafia."
   },
   {
     titulo: "Labirinto Calmo",
     perfis: ["tea", "tdah"],
-    objetivo: "Trabalhar planejamento, tolerância à espera e resolution de problemas.",
-    indicado: "Visual limpo, poucas distrações e reforço positivo por etapa."
+    objetivo: "Trabalhar planejamento, tolerância à espera e resolução de problemas."
   },
   {
     titulo: "Palavra Quebra-Cabeça",
     perfis: ["dislexia", "tdah"],
-    objetivo: "Formar palavras por partes, com suporte visual e desafios progressivos.",
-    indicado: "Une leitura, memória operacional e atenção seletiva."
+    objetivo: "Formar palavras por partes, com suporte visual e desafios progressivos."
   },
   {
     titulo: "Histórias Sociais",
     perfis: ["tea"],
-    objetivo: "Simular situações sociais simples com escolhas guiadas.",
-    indicado: "Reforça comunicação, contexto social e compreensão de regras."
+    objetivo: "Simular situações sociais simples com escolhas guiadas."
   },
   {
     titulo: "Desafio Multissensorial",
     perfis: ["tdah", "tea", "dislexia"],
-    objetivo: "Integrar som, imagem e resposta motora em desafios adaptativos.",
-    indicado: "Boa opção para plano completo com trilhas personalizadas."
+    objetivo: "Integrar som, imagem e resposta motora em desafios adaptativos."
   }
 ];
 
@@ -267,11 +255,11 @@ function montarTelaJogos() {
 
   selectPlano.value = planoAtualJogos;
 
-  var chips = document.querySelectorAll(".chip-filtro");
+  var chips = document.querySelectorAll("#tela-jogos .jogos-chip");
   for (var c = 0; c < chips.length; c++) {
-    chips[c].classList.remove("ativo");
+    chips[c].classList.remove("jogos-chip--ativo");
     if (chips[c].getAttribute("data-perfil") === perfilAtualJogos) {
-      chips[c].classList.add("ativo");
+      chips[c].classList.add("jogos-chip--ativo");
     }
   }
 
@@ -282,28 +270,40 @@ function montarTelaJogos() {
 
   document.getElementById("resumoPlanoJogos").textContent =
     "Plano " + nomes[planoAtualJogos] + ": " + limite +
-    " jogos liberados. Use os filtros para visualizar recomendações por perfil.";
+    " jogos neste plano. Ajuste o perfil para filtrar a lista.";
   document.getElementById("qtdJogosPlano").textContent = String(limite);
   document.getElementById("qtdJogosFiltro").textContent = String(jogos.length);
 
   var html = "";
   if (jogos.length === 0) {
-    html = '<article class="card-jogo"><h3>Nenhum jogo encontrado</h3><p>Este plano ainda não possui jogo liberado para o filtro selecionado.</p></article>';
+    html =
+      '<article class="jogos-card" role="listitem">' +
+      '<h3 class="jogos-card-titulo">Nenhum jogo neste filtro</h3>' +
+      '<p class="jogos-card-texto">Tente outro perfil ou outro plano.</p>' +
+      "</article>";
   }
 
   for (var i = 0; i < jogos.length; i++) {
     var jogo = jogos[i];
     var tags = "";
     for (var t = 0; t < jogo.perfis.length; t++) {
-      tags += '<span class="tag-jogo">' + nomesP[jogo.perfis[t]] + '</span>';
+      tags += '<span class="jogos-tag">' + nomesP[jogo.perfis[t]] + "</span>";
     }
     html +=
-      '<article class="card-jogo">' +
-      '<h3>' + jogo.titulo + '</h3>' +
-      '<p><strong>Objetivo:</strong> ' + jogo.objetivo + '</p>' +
-      '<p><strong>Indicação:</strong> ' + jogo.indicado + '</p>' +
-      '<div class="tags-jogo">' + tags + '</div>' +
-      '</article>';
+      '<article class="jogos-card" role="listitem">' +
+      '<h3 class="jogos-card-titulo">' +
+      jogo.titulo +
+      "</h3>" +
+      '<div class="jogos-card-objetivo-bloco">' +
+      '<span class="jogos-card-rotulo">Objetivo</span>' +
+      '<p class="jogos-card-texto">' +
+      jogo.objetivo +
+      "</p>" +
+      "</div>" +
+      '<div class="jogos-card-tags">' +
+      tags +
+      "</div>" +
+      "</article>";
   }
 
   document.getElementById("listaJogos").innerHTML = html;
@@ -367,8 +367,9 @@ document.body.addEventListener("click", function (ev) {
     return;
   }
 
-  var chip = ev.target.closest(".chip-filtro");
-  if (chip) {
+  var chip = ev.target.closest(".jogos-chip");
+  var telaJogos = document.getElementById("tela-jogos");
+  if (chip && telaJogos && telaJogos.contains(chip)) {
     perfilAtualJogos = chip.getAttribute("data-perfil") || "todos";
     montarTelaJogos();
   }
